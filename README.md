@@ -13,3 +13,5 @@ Writing this after finishing version 1.0 of this project. I've managed to add:
 
 I've used a few sources on the internet plus ChatGPT as well as the little bit of Python I know to build this first script. I do need to mention that using ChatGPT was only to learn something in Python that I didn't know or to troubleshoot the script. I don't intend on copy-pastiing the solutions it gives me, instead I type said solution out whilst making sure to understand every line of code given to me. I should also add that I always ask it questions when there's something i dont fully understand.
 
+I could add the Chat logs in here but they would probably occupy far too much space so I'll kep them safe in my account.
+
