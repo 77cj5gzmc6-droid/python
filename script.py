@@ -54,7 +54,7 @@ print ( "Il vous reste", argent, "euros ce mois-ci.")
 ########################
 
 while True:
-    action = input("Que voulez-vous faire? (nouvelle / supprimer / voir / reste / modifsalaire / quitter)")
+    action = input("Que voulez-vous faire? (nouvelle / supprimer / modifdep / voir / rechercher / reste / modifsalaire / quitter)")
     
     if action == "nouvelle":
         catégorie = input("Quelle est la catégorie de votre dépense? ")
@@ -106,6 +106,38 @@ while True:
         if not depense_trouvee:
                 print("Aucune dépense trouvée avec ce nom.")
 
+    elif action == "modifdep":
+        nom_depense = input("Quel est le nom de la depense que vous voulez modifier?")
+        depense_trouvee = False
+        for depense in depenses:
+            if depense["nom"] == nom_depense:
+                nouvelle_categorie = input("Quelle est la nouvelle catégorie de votre dépense? ")
+                nouveau_nom = input("Quel est le nouveau nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
+                nouveau_montant = float(input("Quel est le nouveau montant de votre dépense? "))
+                nouvelle_date = input("Quelle est la nouvelle date de votre dépense? (jj/mm/aaaa) ")
+                argent += depense["montant"] - nouveau_montant
+                depense["catégorie"] = nouvelle_categorie
+                depense["nom"] = nouveau_nom
+                depense["montant"] = nouveau_montant
+                depense["date"] = nouvelle_date
+                donnees["depenses"] = depenses
+                sauvegarde_donnees(donnees)
+                print("La dépense a été modifiée avec succès. Il vous reste", argent, "euros ce mois-ci.")
+                depense_trouvee = True
+                break
+        if not depense_trouvee:
+                print("Aucune dépense trouvée avec ce nom.")
+
+    elif action == "rechercher":
+        nom_depense = input("Quelle dépense recherchez-vous?")
+        depense_trouvee = False
+        for depense in depenses:
+            if depense["nom"] == nom_depense:
+                print("Dépense trouvée. nom =", depense["nom"], "categorie=",depense["catégorie"], "montant=",depense["montant"], "date=", depense["date"])
+                depense_trouvee = True
+                break
+        if not depense_trouvee:
+                print("Aucune dépense trouvée avec ce nom.")
 
 else :
     print("Action non reconnue. Veuillez réessayer.")   
