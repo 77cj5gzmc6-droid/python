@@ -5,8 +5,8 @@ aujourdhui = datetime.now()
 print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"))
 
 salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
-depenses_mois = float(input("Combien avez-vous déjà dépensé ce mois-ci? "))
-argent = salaire_mensuel - depenses_mois
+depensesdumois = float(input("Combien avez-vous déjà dépensé ce mois-ci? "))
+argent = salaire_mensuel - depensesdumois
 print ( "Il vous reste", argent, "euros ce mois-ci.")
 
 depenses = [ {
@@ -46,3 +46,11 @@ while True:
 else :
     print("Action non reconnue. Veuillez réessayer.")   
 
+
+donnees ={
+    "salaire" : salaire_mensuel,
+    "argent" : argent,
+    "depenses" : depenses
+}
+
+json.dump()
