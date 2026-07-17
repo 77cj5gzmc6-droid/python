@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 
 aujourdhui = datetime.now()
-print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"), "et il est", aujourdhui.strftime("%H:%M:%S"))
+print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"))
 
 salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
 depenses_mois = float(input("Combien avez-vous déjà dépensé ce mois-ci? "))
