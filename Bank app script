@@ -1,0 +1,48 @@
+from datetime import datetime
+import json
+
+aujourdhui = datetime.now()
+print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"), "et il est", aujourdhui.strftime("%H:%M:%S"))
+
+salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
+depenses_mois = float(input("Combien avez-vous déjà dépensé ce mois-ci? "))
+argent = salaire_mensuel - depenses_mois
+print ( "Il vous reste", argent, "euros ce mois-ci.")
+
+depenses = [ {
+
+}
+]
+
+while True:
+    action = input("Que voulez-vous faire? (nouvelle_depense / voir_depenses / voir_argent_restant / modifier_salaire / quitter)")
+    
+    if action == "nouvelle_depense":
+        catégorie = input("Quelle est la catégorie de votre dépense? ")
+        nom = input("Quel est le nom de votre dépense? ")
+        montant = float(input("Quel est le montant de votre dépense? "))
+        date = input("Quelle est la date de votre dépense? (jj/mm/aaaa) ")
+        argent = argent - montant
+        depense = {
+            "nom": nom,
+            "date": date,
+            "catégorie": catégorie,
+            "montant": montant
+        }
+        depenses.append(depense)
+        print("Votre dépense a été ajoutée avec succès. Il vous reste", argent, "euros ce mois-ci.")
+    elif action == "voir_depenses":
+        print("Voici la liste de vos dépenses :")
+        for depense in depenses:
+            print(depense)
+    elif action == "voir_argent_restant":
+        print ("Vous avez", argent, "euros ce mois-ci.")
+    elif action == "modifier_salaire":
+        salaire_mensuel = float(input("Quel est votre nouveau salaire mensuel?"))
+        print("Votre nouveau salaire est maintenant de", salaire_mensuel, "euros.")
+    elif action == "quitter":
+        print("Merci d'avoir utilisé notre application de finances personnelles. À bientôt !")
+        break
+else :
+    print("Action non reconnue. Veuillez réessayer.")   
+
