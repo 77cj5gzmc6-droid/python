@@ -1,12 +1,37 @@
 from datetime import datetime
 import json
+import os
+
+FICHIER = "finances.json"
+
+def charger_donnees():
+    if os.path.exists(FICHIER):
+        with open(FICHIER, "r", encoding="utf-8") as ft:
+            return json.load(f)
+    else:
+        return {
+            "salaire": 0,
+            "depenses": []
+        }
+
+def sauvegarde_donnees(donnees):
+    with open(FICHIER, "x", encoding="utf-8") as f:
+        json.dump(donnees, f, indent=4, ensure_ascii=False)
 
 aujourdhui = datetime.now()
 print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"))
 
-salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
+if donnees["salaire"]==0:
+    salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
+    donnees["salaire"] = salaire_mensuel
+    sauvegarde_donnees(donnees)
+else:
+    salaire_mensuel = donnees["salaire"]
+
 depensesdumois = float(input("Combien avez-vous déjà dépensé ce mois-ci? "))
-argent = salaire_mensuel - depensesdumois
+argent = salaire_mensuel - sum(
+    depense["montant"] for depense in depenses
+)
 print ( "Il vous reste", argent, "euros ce mois-ci.")
 
 depenses = [ {
@@ -30,27 +55,27 @@ while True:
             "montant": montant
         }
         depenses.append(depense)
+        donnees["depenses"]=depenses
+        sauvegarde_donnees(donnees)
         print("Votre dépense a été ajoutée avec succès. Il vous reste", argent, "euros ce mois-ci.")
+    
     elif action == "voir_depenses":
         print("Voici la liste de vos dépenses :")
         for depense in depenses:
             print(depense)
+    
     elif action == "voir_argent_restant":
         print ("Vous avez", argent, "euros ce mois-ci.")
+    
     elif action == "modifier_salaire":
         salaire_mensuel = float(input("Quel est votre nouveau salaire mensuel?"))
+        donnees["salaire"] = salaire_mensuel
+        sauvegarde_donnees(donnees)
         print("Votre nouveau salaire est maintenant de", salaire_mensuel, "euros.")
+    
     elif action == "quitter":
         print("Merci d'avoir utilisé notre application de finances personnelles. À bientôt !")
         break
+
 else :
     print("Action non reconnue. Veuillez réessayer.")   
-
-
-donnees ={
-    "salaire" : salaire_mensuel,
-    "argent" : argent,
-    "depenses" : depenses
-}
-
-json.dump()
