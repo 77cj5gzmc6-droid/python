@@ -54,11 +54,11 @@ print ( "Il vous reste", argent, "euros ce mois-ci.")
 ########################
 
 while True:
-    action = input("Que voulez-vous faire? (nouvelle_depense / supprimer_depense / voir_depenses / voir_argent_restant / modifier_salaire / quitter)")
+    action = input("Que voulez-vous faire? (nouvelle / supprimer / voir / reste / modifsalaire / quitter)")
     
-    if action == "nouvelle_depense":
+    if action == "nouvelle":
         catégorie = input("Quelle est la catégorie de votre dépense? ")
-        nom = input("Quel est le nom de votre dépense? ")
+        nom = input("Quel est le nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
         montant = float(input("Quel est le montant de votre dépense? "))
         date = input("Quelle est la date de votre dépense? (jj/mm/aaaa) ")
         argent = argent - montant
@@ -73,15 +73,15 @@ while True:
         sauvegarde_donnees(donnees)
         print("Votre dépense a été ajoutée avec succès. Il vous reste", argent, "euros ce mois-ci.")
     
-    elif action == "voir_depenses":
+    elif action == "voir":
         print("Voici la liste de vos dépenses :")
         for depense in depenses:
             print(depense)
     
-    elif action == "voir_argent_restant":
+    elif action == "reste":
         print ("Vous avez", argent, "euros ce mois-ci.")
     
-    elif action == "modifier_salaire":
+    elif action == "modifsalaire":
         salaire_mensuel = float(input("Quel est votre nouveau salaire mensuel?"))
         donnees["salaire"] = salaire_mensuel
         sauvegarde_donnees(donnees)
@@ -91,7 +91,7 @@ while True:
         print("Merci d'avoir utilisé notre application de finances personnelles. À bientôt !")
         break
 
-    elif action == "supprimer_depense":
+    elif action == "supprimer":
         nom_depense = input("Quel est le nom de la dépense que vous souhaitez supprimer? ")
         depense_trouvee = False
         for depense in depenses:
@@ -103,7 +103,7 @@ while True:
                 print("La dépense a été supprimée avec succès. Il vous reste", argent, "euros ce mois-ci.")
                 depense_trouvee = True
                 break
-            if not depense_trouvee:
+        if not depense_trouvee:
                 print("Aucune dépense trouvée avec ce nom.")
 
 
