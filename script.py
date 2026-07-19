@@ -54,9 +54,9 @@ print ( "Il vous reste", argent, "euros ce mois-ci.")
 ########################
 
 while True:
-    action = input("Que voulez-vous faire? (nouvelle / supprimer / modifdep / voir / rechercher / reste / modifsalaire / quitter)")
+    action = input("Que voulez-vous faire? (nouvelle (n) / supprimer (s) / modifdep (md) / voir (v) / rechercher (r) / reste (e) / modifsalaire (ms) / quitter (q))")
     
-    if action == "nouvelle":
+    if action == "n":
         catégorie = input("Quelle est la catégorie de votre dépense? ")
         nom = input("Quel est le nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
         montant = float(input("Quel est le montant de votre dépense? "))
@@ -73,25 +73,25 @@ while True:
         sauvegarde_donnees(donnees)
         print("Votre dépense a été ajoutée avec succès. Il vous reste", argent, "euros ce mois-ci.")
     
-    elif action == "voir":
+    elif action == "v":
         print("Voici la liste de vos dépenses :")
         for depense in depenses:
             print(depense)
     
-    elif action == "reste":
+    elif action == "e":
         print ("Vous avez", argent, "euros ce mois-ci.")
     
-    elif action == "modifsalaire":
+    elif action == "ms":
         salaire_mensuel = float(input("Quel est votre nouveau salaire mensuel?"))
         donnees["salaire"] = salaire_mensuel
         sauvegarde_donnees(donnees)
         print("Votre nouveau salaire est maintenant de", salaire_mensuel, "euros.")
     
-    elif action == "quitter":
+    elif action == "q":
         print("Merci d'avoir utilisé notre application de finances personnelles. À bientôt !")
         break
 
-    elif action == "supprimer":
+    elif action == "s":
         nom_depense = input("Quel est le nom de la dépense que vous souhaitez supprimer? ")
         depense_trouvee = False
         for depense in depenses:
@@ -106,7 +106,7 @@ while True:
         if not depense_trouvee:
                 print("Aucune dépense trouvée avec ce nom.")
 
-    elif action == "modifdep":
+    elif action == "md":
         nom_depense = input("Quel est le nom de la depense que vous voulez modifier?")
         depense_trouvee = False
         for depense in depenses:
@@ -128,7 +128,7 @@ while True:
         if not depense_trouvee:
                 print("Aucune dépense trouvée avec ce nom.")
 
-    elif action == "rechercher":
+    elif action == "r":
         nom_depense = input("Quelle dépense recherchez-vous?")
         depense_trouvee = False
         for depense in depenses:
