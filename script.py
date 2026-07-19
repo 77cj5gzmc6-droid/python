@@ -22,8 +22,8 @@ def sauvegarde_donnees(donnees):
 ## Welcome
 #########################
 
-aujourdhui = datetime.now()
-print("Bonjour ! Aujourd'hui, nous sommes le", aujourdhui.strftime("%d/%m/%Y"))
+today = datetime.now()
+print("Bonjour ! Aujourd'hui, nous sommes le", today.strftime("%d/%m/%Y"))
 
 donnees = charger_donnees()
 depenses = donnees["depenses"]
@@ -49,15 +49,18 @@ argent = salaire_mensuel - sum(
 )
 print ( "Il vous reste", argent, "euros ce mois-ci.")
 
+if today.day ==1:
+    argent =+ salaire_mensuel
+
 ########################
 ## Main menu
 ########################
 
 while True:
-    action = input("Que voulez-vous faire? (nouvelle (n) / supprimer (s) / modifdep (md) / voir (v) / rechercher (r) / reste (e) / modifsalaire (ms) / quitter (q))")
+    action = input("Que voulez-vous faire? (Nouvelle dépense (n) / Supprimer une dépense (s) / Rajouter de l'argent (a) / Modifier une dépense (md) / Voie mes dépenses (v) / Rechercher une dépense (r) / Reste (e) / Modifier mon salaire mensuel (ms) / Quitter (q)")
     
     if action == "n":
-        catégorie = input("Quelle est la catégorie de votre dépense? ")
+        categorie = input("Quelle est la catégorie de votre dépense? ")
         nom = input("Quel est le nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
         montant = float(input("Quel est le montant de votre dépense? "))
         date = input("Quelle est la date de votre dépense? (jj/mm/aaaa) ")
@@ -65,7 +68,7 @@ while True:
         depense = {
             "nom": nom,
             "date": date,
-            "catégorie": catégorie,
+            "categorie": categorie,
             "montant": montant
         }
         depenses.append(depense)
@@ -112,11 +115,19 @@ while True:
         for depense in depenses:
             if depense["nom"] == nom_depense:
                 nouvelle_categorie = input("Quelle est la nouvelle catégorie de votre dépense? ")
+                if nouvelle_categorie == "m":
+                    nouvelle_categorie = depense["categorie"]
                 nouveau_nom = input("Quel est le nouveau nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
-                nouveau_montant = float(input("Quel est le nouveau montant de votre dépense? "))
+                if nouveau_nom == "m":
+                    nouveau_nom = depense["nom"]
+                nouveau_montant = float(input("Quel est le nouveau montant de votre dépense? Appuyez 0 si c'est le même montant"))
+                if nouveau_montant == 0:
+                    nouveau_montant = depense["montant"]
                 nouvelle_date = input("Quelle est la nouvelle date de votre dépense? (jj/mm/aaaa) ")
+                if nouvelle_date == "m":
+                    nouvelle_date = depense["date"]
                 argent += depense["montant"] - nouveau_montant
-                depense["catégorie"] = nouvelle_categorie
+                depense["categorie"] = nouvelle_categorie
                 depense["nom"] = nouveau_nom
                 depense["montant"] = nouveau_montant
                 depense["date"] = nouvelle_date
@@ -133,11 +144,16 @@ while True:
         depense_trouvee = False
         for depense in depenses:
             if depense["nom"] == nom_depense:
-                print("Dépense trouvée. nom =", depense["nom"], "categorie=",depense["catégorie"], "montant=",depense["montant"], "date=", depense["date"])
+                print("Dépense trouvée. nom =", depense["nom"], "categorie=",depense["categorie"], "montant=",depense["montant"], "date=", depense["date"])
                 depense_trouvee = True
                 break
         if not depense_trouvee:
                 print("Aucune dépense trouvée avec ce nom.")
+
+    elif action == "a":
+        montant_ajoute = float(input("Combien d'argent voulez-vous rajouter? "))
+        argent += montant_ajoute
+        print("Vous avez ajouté", montant_ajoute, "euros. Il vous reste maintenant", argent, "euros ce mois-ci.")
 
 else :
     print("Action non reconnue. Veuillez réessayer.")   
