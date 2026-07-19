@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import os
 
-FICHIER = "/Users/joshuawhite-labbe/Desktop/finances.json"
+FICHIER = "/Users/joshuawhite-labbe/Documents/GitHub/python/finances.json"
 
 def charger_donnees():
     if os.path.exists(FICHIER):

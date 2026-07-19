@@ -1,0 +1,18 @@
+{
+    "salaire": 10000.0,
+    "depenses": [
+        {
+            "nom": "La nourriture du mois",
+            "date": "01/07/2026",
+            "catégorie": "nourriture",
+            "montant": 2500.0,
+            "categorie": "Alimentation"
+        },
+        {
+            "nom": "Nouvel iPhone 17",
+            "date": "01/01/2026",
+            "catégorie": "Technologie",
+            "montant": 800.0
+        }
+    ]
+}
