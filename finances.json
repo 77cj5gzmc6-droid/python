@@ -1,24 +1,12 @@
 {
-    "salary": 1700.0,
-    "payday": "1",
+    "salary": 2000.0,
+    "payday": 1.0,
     "expenses": [
         {
-            "name": "Gula Gula pasta bowl",
-            "date": "12/08/2026",
+            "name": "Starbucks",
             "category": "Food",
-            "amount": 13.0
-        },
-        {
-            "name": "Gula Gula pasta bowl 1",
-            "date": "18/09/2026",
-            "category": "Food",
-            "amount": 18.0
-        },
-        {
-            "name": "McDonalds",
-            "date": "21/09/2026",
-            "category": "Food",
-            "amount": 19.0
+            "date": "12/09/2026",
+            "amount": 7.0
         }
     ]
 }
