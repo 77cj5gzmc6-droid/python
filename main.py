@@ -1,6 +1,6 @@
 from datetime import datetime, date
 from database import load_data, save_data
-from expenses import money, expenses
+from expenses import money, expenses, add, remove
 
 #########################
 ## Welcome
@@ -20,31 +20,16 @@ while True:
     action = input("What would you like to do? (New expense (n) / Delete an expense (d) / Add money (a) / Modify an expense (me) / View my expenses (v) / Search for an expense (s) / Check remaining (re) / Modify my monthly salary (ms) / Quit (q)")
     
     if action == "n":
-        category = input("What is the category of your expense? ")
         name = input("What is the name of your expense? ")
-        def makename(name, expenses):
-            ogn = name
-            counter = 1
-            existing_names = [expense["name"] for expense in expenses]
-            while name in existing_names:
-                name = f"{ogn} ({counter})"
-                counter += 1
-            return name
-        name = makename(name, expenses)
-        amount = float(input("What is the amount of your expense? "))
+        category = input("What is the category of your expense? ")
         date = input("What is the date of your expense? (dd/mm/yyyy) ")
-        money = money - amount
-        expense = {
-            "name": name,
-            "date": date,
-            "category": category,
-            "amount": amount
-        }
-        expenses.append(expense)
-        data["expenses"] = expenses
-        save_data(data)
-        print("Your expense has been added successfully. You have", money, "pounds left this month.")
-    
+        amount = float(input("What is the amount of your expense? "))
+        add(name, category, date, amount)
+
+    elif action == "d":
+            name = input("What is the name of the expense you would like to delete?")
+            remove(name)
+
     elif action == "v":
         print("Here is your list of expenses:")
         for expense in expenses:
@@ -62,22 +47,7 @@ while True:
     elif action == "q":
         print("Thank you for using our application. Have a nice day!")
         break
-
-    elif action == "d":
-        name = input("What is the name of the expense you want to delete? ")
-        expense_found = False
-        for expense in expenses:
-            if expense["name"] == name:
-                expenses.remove(expense)
-                data["expenses"] = expenses
-                save_data(data)
-                money += expense["amount"]
-                print("The expense has been deleted successfully. You have", money, "pounds left this month.")
-                expense_found = True
-                break
-        if not expense_found:
-                print("No expense found with that name.")
-
+        
     elif action == "me":
         name = input("What is the name of the expense you want to modify?")
         expense_found = False
