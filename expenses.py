@@ -1,6 +1,8 @@
 from database import load_data, save_data
 from datetime import datetime, date
 
+changer = 1
+
 data = load_data()
 expenses = data["expenses"]
 
