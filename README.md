@@ -15,3 +15,6 @@ I've used a few sources on the internet plus ChatGPT as well as the little bit o
 
 I could add the Chat logs in here but they would probably occupy far too much space so I'll kep them safe in my account.
 
+# 23/07/2026 - Log 2, adding things and learning how to declutter my code
+Just used a branch in GitHub for the first time! Here I've updated my app to version 1.1, adding more features and doing step one of decluttering by making different python files for different functions or "modules" as I like to call them.
+Can't wait to finish seperating all of the other modules into files! It's so satisfying to finally learn something and make progress.
