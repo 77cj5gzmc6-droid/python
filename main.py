@@ -123,11 +123,7 @@ while True:
         amount_added = float(input("How much money do you want to add? "))
         money += amount_added
         print("You have added", amount_added, "pounds. You have", money, "pounds left this month.")
-
-    else:
-        print("Invalid action. Please try again.")
-                print("No expense found with that name.")
-
+  
     elif action == "md":
         name = input("What is the name of the expense you want to modify?")
         expense_found = False
