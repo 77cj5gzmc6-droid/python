@@ -54,7 +54,16 @@ while True:
     
     if action == "n":
         category = input("What is the category of your expense? ")
-        name = input("What is the name of your expense? Attention, it cannot be repeated ")
+        name = input("What is the name of your expense?")
+        def namemake(name,expenses):
+            counter = 1
+            original_name = name
+            existing_names = [expense["name"] for expense in expenses]
+            while name in existing_names:
+                name = original_name + " " + str(counter)
+                counter += 1
+            return name
+        name = namemake(name, expenses)
         amount = float(input("What is the amount of your expense? "))
         date = input("What is the date of your expense? (dd/mm/yyyy) ")
         money = money - amount

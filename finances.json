@@ -7,6 +7,12 @@
             "date": "12/08/2026",
             "category": "Food",
             "amount": 13.0
+        },
+        {
+            "name": "Gula Gula pasta bowl 1",
+            "date": "18/09/2026",
+            "category": "Food",
+            "amount": 18.0
         }
     ]
 }
