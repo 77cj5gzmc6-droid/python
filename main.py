@@ -13,7 +13,7 @@ data = load_data()
 expenses = data["expenses"]
 
 ########################
-## Main menu
+## All functions
 ########################
 
 while True:
