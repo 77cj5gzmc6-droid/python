@@ -2,158 +2,168 @@ from datetime import datetime
 import json
 import os
 
-FICHIER = "/Users/joshuawhite-labbe/Documents/GitHub/python/finances.json"
+FILE = "/Users/joshuawhite-labbe/Documents/GitHub/python/finances.json"
 
-def charger_donnees():
-    if os.path.exists(FICHIER):
-        with open(FICHIER, "r", encoding="utf-8") as ft:
+def load_data():
+    if os.path.exists(FILE):
+        with open(FILE, "r", encoding="utf-8") as ft:
             return json.load(ft)
     else:
         return {
-            "salaire": 0,
-            "depenses": []
+            "salary": 0,
+            "expenses": []
         }
 
-def sauvegarde_donnees(donnees):
-    with open(FICHIER, "w", encoding="utf-8") as f:
-        json.dump(donnees, f, indent=4, ensure_ascii=False)
+def save_data(data):
+    with open(FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
 
 #########################
 ## Welcome
 #########################
 
 today = datetime.now()
-print("Bonjour ! Aujourd'hui, nous sommes le", today.strftime("%d/%m/%Y"))
+print("Welcome ! Today is", today.strftime("%d/%m/%Y"))
 
-donnees = charger_donnees()
-depenses = donnees["depenses"]
+data = load_data()
+expenses = data["expenses"]
 
 #########################
 ## Salary
 #########################
 
-if donnees["salaire"]==0:
-    salaire_mensuel = float(input("Quel est votre salaire mensuel ? "))
-    donnees["salaire"] = salaire_mensuel
-    sauvegarde_donnees(donnees)
+if data["salary"]==0:
+    salary = float(input("What is your monthly salary? "))
+    payday = float(input("What is your payday? Please enter the day of the month (eg. 1 if its on the first of the month)"))
+    data["salary"] = salary
+    data["payday"] = payday
+    save_data(data)
 else:
-    salaire_mensuel = donnees["salaire"]
-    print("Votre salaire mensuel est de", salaire_mensuel, "euros")
+    salary = data["salary"]
+    print("Your monthly salary is", salary, "pounds.")
+
+if date.today().day == 1:
+    print("It's the first day of the month! Your expenses have been reset.")
+    expenses = []
+    data["expenses"] = expenses
+    save_data(data)
+
+if date.today().day == data["payday"]:
+    print("It's payday! Your salary has been added to your account.")
+    money =+ salary
+    print ( "You have", money, "pounds left this month.")
 
 ########################
 ## Expenses
 ########################
 
-argent = salaire_mensuel - sum(
-    depense["montant"] for depense in depenses
+money = salary - sum(
+    expense["amount"] for expense in expenses
 )
-print ( "Il vous reste", argent, "euros ce mois-ci.")
-
-if today.day ==1:
-    argent =+ salaire_mensuel
+print ( "You have", money, "pounds left this month.")
 
 ########################
 ## Main menu
 ########################
 
 while True:
-    action = input("Que voulez-vous faire? (Nouvelle dépense (n) / Supprimer une dépense (s) / Rajouter de l'argent (a) / Modifier une dépense (md) / Voie mes dépenses (v) / Rechercher une dépense (r) / Reste (e) / Modifier mon salaire mensuel (ms) / Quitter (q)")
+    action = input("What would you like to do? (New expense (n) / Delete an expense (s) / Add money (a) / Modify an expense (md) / View my expenses (v) / Search for an expense (r) / Check remaining (e) / Modify my monthly salary (ms) / Quit (q)")
     
     if action == "n":
-        categorie = input("Quelle est la catégorie de votre dépense? ")
-        nom = input("Quel est le nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
-        montant = float(input("Quel est le montant de votre dépense? "))
-        date = input("Quelle est la date de votre dépense? (jj/mm/aaaa) ")
-        argent = argent - montant
-        depense = {
-            "nom": nom,
+        category = input("What is the category of your expense? ")
+        name = input("What is the name of your expense? Attention, it cannot be repeated ")
+        amount = float(input("What is the amount of your expense? "))
+        date = input("What is the date of your expense? (dd/mm/yyyy) ")
+        money = money - amount
+        expense = {
+            "name": name,
             "date": date,
-            "categorie": categorie,
-            "montant": montant
+            "category": category,
+            "amount": amount
         }
-        depenses.append(depense)
-        donnees["depenses"]=depenses
-        sauvegarde_donnees(donnees)
-        print("Votre dépense a été ajoutée avec succès. Il vous reste", argent, "euros ce mois-ci.")
+        expenses.append(expense)
+        data["expenses"] = expenses
+        save_data(data)
+        print("Your expense has been added successfully. You have", money, "pounds left this month.")
     
     elif action == "v":
-        print("Voici la liste de vos dépenses :")
-        for depense in depenses:
-            print(depense)
+        print("Here is your list of expenses:")
+        for expense in expenses:
+            print(expense)
     
     elif action == "e":
-        print ("Vous avez", argent, "euros ce mois-ci.")
+        print ("You have", money, "pounds left this month.")
     
     elif action == "ms":
-        salaire_mensuel = float(input("Quel est votre nouveau salaire mensuel?"))
-        donnees["salaire"] = salaire_mensuel
-        sauvegarde_donnees(donnees)
-        print("Votre nouveau salaire est maintenant de", salaire_mensuel, "euros.")
+        salary = float(input("What is your new monthly salary?"))
+        data["salary"] = salary
+        save_data(data)
+        print("Your new monthly salary is now", salary, "pounds.")
     
     elif action == "q":
-        print("Merci d'avoir utilisé notre application de finances personnelles. À bientôt !")
+        print("Thank you for using our application. Have a nice day!")
         break
 
     elif action == "s":
-        nom_depense = input("Quel est le nom de la dépense que vous souhaitez supprimer? ")
-        depense_trouvee = False
-        for depense in depenses:
-            if depense["nom"] == nom_depense:
-                depenses.remove(depense)
-                donnees["depenses"] = depenses
-                sauvegarde_donnees(donnees)
-                argent += depense["montant"]
-                print("La dépense a été supprimée avec succès. Il vous reste", argent, "euros ce mois-ci.")
-                depense_trouvee = True
+        name = input("What is the name of the expense you want to delete? ")
+        expense_found = False
+        for expense in expenses:
+            if expense["name"] == name:
+                expenses.remove(expense)
+                data["expenses"] = expenses
+                save_data(data)
+                money += expense["amount"]
+                print("The expense has been deleted successfully. You have", money, "pounds left this month.")
+                expense_found = True
                 break
-        if not depense_trouvee:
-                print("Aucune dépense trouvée avec ce nom.")
+        if not expense_found:
+                print("No expense found with that name.")
 
     elif action == "md":
-        nom_depense = input("Quel est le nom de la depense que vous voulez modifier?")
-        depense_trouvee = False
-        for depense in depenses:
-            if depense["nom"] == nom_depense:
-                nouvelle_categorie = input("Quelle est la nouvelle catégorie de votre dépense? ")
-                if nouvelle_categorie == "m":
-                    nouvelle_categorie = depense["categorie"]
-                nouveau_nom = input("Quel est le nouveau nom de votre dépense? Attention, il ne faut pas que les noms se répètent ")
-                if nouveau_nom == "m":
-                    nouveau_nom = depense["nom"]
-                nouveau_montant = float(input("Quel est le nouveau montant de votre dépense? Appuyez 0 si c'est le même montant"))
-                if nouveau_montant == 0:
-                    nouveau_montant = depense["montant"]
-                nouvelle_date = input("Quelle est la nouvelle date de votre dépense? (jj/mm/aaaa) ")
-                if nouvelle_date == "m":
-                    nouvelle_date = depense["date"]
-                argent += depense["montant"] - nouveau_montant
-                depense["categorie"] = nouvelle_categorie
-                depense["nom"] = nouveau_nom
-                depense["montant"] = nouveau_montant
-                depense["date"] = nouvelle_date
-                donnees["depenses"] = depenses
-                sauvegarde_donnees(donnees)
-                print("La dépense a été modifiée avec succès. Il vous reste", argent, "euros ce mois-ci.")
-                depense_trouvee = True
+        name = input("What is the name of the expense you want to modify?")
+        expense_found = False
+        for expense in expenses:
+            if expense["name"] == name:
+                new_category = input("What is the new category of your expense? ")
+                if new_category == "m":
+                    new_category = expense["category"]
+                new_name = input("What is the new name of your expense? Beware, it cannot be repeated ")
+                if new_name == "m":
+                    new_name = expense["name"]
+                new_amount = float(input("What is the new amount of your expense? Press 0 if it's the same amount"))
+                if new_amount == 0:
+                    new_amount = expense["amount"]
+                new_date = input("What is the new date of your expense? (dd/mm/yyyy) ")
+                if new_date == "m":
+                    new_date = expense["date"]
+                money += expense["amount"] - new_amount
+                expense["category"] = new_category
+                expense["name"] = new_name
+                expense["amount"] = new_amount
+                expense["date"] = new_date
+                data["expenses"] = expenses
+                save_data(data)
+                print("The expense has been modified successfully. You have", money, "pounds left this month.")
+                expense_found = True
                 break
-        if not depense_trouvee:
-                print("Aucune dépense trouvée avec ce nom.")
+        if not expense_found:
+                print("No expense found with that name.")
 
     elif action == "r":
-        nom_depense = input("Quelle dépense recherchez-vous?")
-        depense_trouvee = False
-        for depense in depenses:
-            if depense["nom"] == nom_depense:
-                print("Dépense trouvée. nom =", depense["nom"], "categorie=",depense["categorie"], "montant=",depense["montant"], "date=", depense["date"])
-                depense_trouvee = True
+        name = input("What is the name of the expense you want to search for?")
+        expense_found = False
+        for expense in expenses:
+            if expense["name"] == name:
+                print("Expense found. Name =", expense["name"], "Category =", expense["category"], "Amount =", expense["amount"], "Date =", expense["date"])
+                expense_found = True
                 break
-        if not depense_trouvee:
-                print("Aucune dépense trouvée avec ce nom.")
+        if not expense_found:
+                print("No results found.")
 
     elif action == "a":
-        montant_ajoute = float(input("Combien d'argent voulez-vous rajouter? "))
-        argent += montant_ajoute
-        print("Vous avez ajouté", montant_ajoute, "euros. Il vous reste maintenant", argent, "euros ce mois-ci.")
+        amount_added = float(input("How much money do you want to add? "))
+        money += amount_added
+        print("You have added", amount_added, "pounds. You have", money, "pounds left this month.")
 
-else :
-    print("Action non reconnue. Veuillez réessayer.")   
+    else:
+        print("Invalid action. Please try again.")
