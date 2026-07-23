@@ -1,0 +1,12 @@
+{
+    "salary": 1700.0,
+    "payday": "1",
+    "expenses": [
+        {
+            "name": "Gula Gula pasta bowl",
+            "date": "12/08/2026",
+            "category": "Food",
+            "amount": 13.0
+        }
+    ]
+}
