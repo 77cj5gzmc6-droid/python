@@ -7,6 +7,24 @@
             "category": "Food & drink",
             "date": "12/09/2026",
             "amount": 7.0
+        },
+        {
+            "name": "Apple iPhone 17e",
+            "category": "Technology",
+            "date": "12/09/2026",
+            "amount": 800.0
+        },
+        {
+            "name": "Starbucks 1",
+            "category": "Food & drink",
+            "date": "2/09/2028",
+            "amount": 12.0
+        },
+        {
+            "name": "Starbucks 2",
+            "category": "Food",
+            "date": "12/08/2025",
+            "amount": 10.0
         }
     ]
 }

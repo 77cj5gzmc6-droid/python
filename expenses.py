@@ -5,34 +5,11 @@ from datetime import datetime, date
 data = load_data()
 expenses = data["expenses"]
 
-if data["salary"]==0:
-    salary = float(input("What is your monthly salary? "))
-    payday = float(input("What is your payday? Please enter the day of the month (eg. 1 if its on the first of the month)"))
-    data["salary"] = salary
-    data["payday"] = payday
-    save_data(data)
-else:
-    salary = data["salary"]
-    print("Your monthly salary is", salary, "pounds.")
-
-if date.today().day == 1:
-    print("It's the first day of the month! Your expenses have been reset.")
-    expenses = []
-    data["expenses"] = expenses
-    save_data(data)
-
-money = salary - sum(
-    expense["amount"] for expense in expenses
-)
-print ( "You have", money, "pounds left this month.")
-
-if date.today().day == data["payday"]:
-    print("It's payday! Your salary has been added to your account.")
-    money += salary
-    print ( "You have", money, "pounds left this month.")
+def calculate_money(salary, expenses):
+    return salary - sum(expense["amount"] for expense in expenses)
 
 def add(name, category, date, amount):
-    global money
+    money = calculate_money(data["salary"], expenses)
     expense = {
         "name": name,
         "category": category,
@@ -45,8 +22,17 @@ def add(name, category, date, amount):
     money -= amount
     print("Your expense has been added successfully. You have", money, "pounds left this month.")
 
+def namemake(name,expenses):
+    counter = 1
+    original_name = name
+    existing_names = [expense["name"] for expense in expenses]
+    while name in existing_names:
+        name = original_name + " " + str(counter)
+        counter += 1
+    return name
+
 def remove(name):
-    global money
+    money = calculate_money(data["salary"], expenses)
     for expense in expenses:
         if expense["name"] == name:
             expenses.remove(expense)
@@ -55,5 +41,49 @@ def remove(name):
             money += expense["amount"]
             print("Your expense has been removed successfully. You have", money, "pounds left this month.")
             return
-        else:
-            print("No expense found with that name.")
+    print("No expense found with that name.")
+
+def modify(name):
+    money = calculate_money(data["salary"], expenses)
+    expense_found = False
+    for expense in expenses:
+        if expense["name"] == name:
+            new_category = input("What is the new category of your expense? Press s if it's the same as before.")
+            if new_category == "s":
+                new_category = expense["category"]
+            new_name = input("What is the new name of your expense? Press s if it's the same as before.")
+            if new_name == "s":
+                new_name = expense["name"]
+            new_amount = float(input("What is the new amount of your expense? Press 0 if it's the same amount as before."))
+            if new_amount == 0:
+                new_amount = expense["amount"]
+            new_date = input("What is the new date of your expense (DD/MM/YYYY)? Press s if it's the same as before. ")
+            if new_date == "s":
+                new_date = expense["date"]
+            money += expense["amount"] - new_amount
+            expense["category"] = new_category
+            expense["name"] = new_name
+            expense["amount"] = new_amount
+            expense["date"] = new_date
+            data["expenses"] = expenses
+            save_data(data)
+            print("The expense has been modified successfully. You have", money, "pounds left this month.")
+            expense_found = True
+            break
+    if not expense_found:
+        print("No expense found with that name.")
+
+def search(name):
+    expense_found = False
+    for expense in expenses:
+        if expense["name"] == name:
+            print("Expense found. Name =", expense["name"], "Category =", expense["category"], "Amount =", expense["amount"], "Date =", expense["date"])
+            expense_found = True
+            break
+    if not expense_found:
+        print("No results found.")
+
+def view():
+    print("Here is your list of expenses:")
+    for expense in expenses:
+        print(expense)
