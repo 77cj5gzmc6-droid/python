@@ -7,7 +7,7 @@ def largest_expense():
   return max(expenses, key=lambda expense: expense["amount"])
 
 def total_spent():
-  print("Youve spent a total of", sum(expense["amount"] for expense in expenses), "this month.")
+  print("Youve spent a total of", sum(expense["amount"] for expense in expenses), "this month.")
 
 def category_totals ():
   totals = {}
