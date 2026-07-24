@@ -1,4 +1,5 @@
 from database import load_data
+import matplotlib.pyplot as plt
 
 data = load_data()
 expenses = data["expenses"]
@@ -21,3 +22,13 @@ def category_totals ():
 def biggest_category():
   totals = category_totals()
   return max(totals, key=totals.get) 
+
+def graph():
+  totals = category_totals()
+  categories = list(totals.keys())
+  amounts = list(totals.values())
+  plt.bar(categories, amounts)
+  plt.title("Monthly spending by category")
+  plt.xlabel("Category")
+  plt.ylabel("Amount spent")
+  plt.show()
