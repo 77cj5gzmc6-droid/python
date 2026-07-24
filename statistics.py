@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 data = load_data()
 expenses = data["expenses"]
 
-def largest_expense():
+def largest():
   return max(expenses, key=lambda expense: expense["amount"])
 
-def total_spent():
+def total():
   print("Youve spent a total of", sum(expense["amount"] for expense in expenses), "this month.")
 
-def category_totals ():
+def categories():
   totals = {}
   for expense in expenses:
     category = expense["category"]
@@ -19,7 +19,7 @@ def category_totals ():
     totals[category] += expense["amount"]
   return totals
 
-def biggest_category():
+def biggestc():
   totals = category_totals()
   return max(totals, key=totals.get) 
 
