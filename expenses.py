@@ -1,3 +1,4 @@
+from unicodedata import name
 from database import load_data, save_data
 from datetime import datetime, date
 
@@ -56,5 +57,3 @@ def remove(name):
             return
         else:
             print("No expense found with that name.")
-
-            

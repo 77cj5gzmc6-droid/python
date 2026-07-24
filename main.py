@@ -41,6 +41,37 @@ while True:
             name = input("What is the name of the expense you would like to delete?")
             remove(name)
 
+    elif action == "me":
+        name = input("What is the name of the expense you want to modify?")
+        expense_found = False
+        for expense in expenses:
+            if expense["name"] == name:
+                new_category = input("What is the new category of your expense? Press s if it's the same as before.")
+                if new_category == "s":
+                    new_category = expense["category"]
+                new_name = input("What is the new name of your expense? Press s if it's the same as before.")
+                if new_name == "s":
+                     new_name = expense["name"]
+                new_amount = float(input("What is the new amount of your expense? Press 0 if it's the same amount as before."))
+                if new_amount == 0:
+                    new_amount = expense["amount"]
+                new_date = input("What is the new date of your expense (DD/MM/YYYY)? Press s if it's the same as before. ")
+                if new_date == "s":
+                    new_date = expense["date"]
+                money += expense["amount"] - new_amount
+                expense["category"] = new_category
+                expense["name"] = new_name
+                expense["amount"] = new_amount
+                expense["date"] = new_date
+                data["expenses"] = expenses
+                save_data(data)
+                print("The expense has been modified successfully. You have", money, "pounds left this month.")
+                expense_found = True
+                break
+        if not expense_found:
+            print("No expense found with that name.")
+        
+
     elif action == "v":
         print("Here is your list of expenses:")
         for expense in expenses:
@@ -58,36 +89,6 @@ while True:
     elif action == "q":
         print("Thank you for using our application. Have a nice day!")
         break
-        
-    elif action == "me":
-        name = input("What is the name of the expense you want to modify?")
-        expense_found = False
-        for expense in expenses:
-            if expense["name"] == name:
-                new_category = input("What is the new category of your expense? ")
-                if new_category == "m":
-                    new_category = expense["category"]
-                new_name = input("What is the new name of your expense? Beware, it cannot be repeated ")
-                if new_name == "m":
-                    new_name = expense["name"]
-                new_amount = float(input("What is the new amount of your expense? Press 0 if it's the same amount"))
-                if new_amount == 0:
-                    new_amount = expense["amount"]
-                new_date = input("What is the new date of your expense? (dd/mm/yyyy) ")
-                if new_date == "m":
-                    new_date = expense["date"]
-                money += expense["amount"] - new_amount
-                expense["category"] = new_category
-                expense["name"] = new_name
-                expense["amount"] = new_amount
-                expense["date"] = new_date
-                data["expenses"] = expenses
-                save_data(data)
-                print("The expense has been modified successfully. You have", money, "pounds left this month.")
-                expense_found = True
-                break
-        if not expense_found:
-                print("No expense found with that name.")
 
     elif action == "s":
         name = input("What is the name of the expense you want to search for?")
@@ -98,42 +99,12 @@ while True:
                 expense_found = True
                 break
         if not expense_found:
-                print("No results found.")
-
+            print("No results found.")
+    
     elif action == "a":
         amount_added = float(input("How much money do you want to add? "))
         money += amount_added
         print("You have added", amount_added, "pounds. You have", money, "pounds left this month.")
-  
-    elif action == "md":
-        name = input("What is the name of the expense you want to modify?")
-        expense_found = False
-        for expense in expenses:
-            if expense["name"] == name:
-                new_category = input("What is the new category of your expense? ")
-                if new_category == "m":
-                    new_category = expense["category"]
-                new_name = input("What is the new name of your expense? Beware, it cannot be repeated ")
-                if new_name == "m":
-                    new_name = expense["name"]
-                new_amount = float(input("What is the new amount of your expense? Press 0 if it's the same amount"))
-                if new_amount == 0:
-                    new_amount = expense["amount"]
-                new_date = input("What is the new date of your expense? (dd/mm/yyyy) ")
-                if new_date == "m":
-                    new_date = expense["date"]
-                money += expense["amount"] - new_amount
-                expense["category"] = new_category
-                expense["name"] = new_name
-                expense["amount"] = new_amount
-                expense["date"] = new_date
-                data["expenses"] = expenses
-                save_data(data)
-                print("The expense has been modified successfully. You have", money, "pounds left this month.")
-                expense_found = True
-                break
-        if not expense_found:
-                print("No expense found with that name.")
 
     elif action == "r":
         name = input("What is the name of the expense you want to search for?")
