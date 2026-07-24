@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from database import load_data, save_data
 from expenses import add, remove, modify, search, namemake, view
+from statistics import largest, total_money, total_categories, biggestc, graph
 
 #######################################################################################################################################################################################################################################################
 ## Welcome and setup
@@ -43,7 +44,7 @@ if date.today().day == data["payday"]:
 #######################################################################################################################################################################################################################################################
 
 while True:
-    action = input("What would you like to do? (New expense (n) / Delete an expense (d) / Add money (a) / Modify an expense (me) / View my expenses (v) / Search for an expense (s) / Money left this month (l) / Modify my monthly salary (ms) / Quit (q)")
+    action = input("What would you like to do? (New expense (n) / Delete an expense (d) / Add money (a) / Modify an expense (me) / View my expenses (v) / Search for an expense (s) / Money left this month (l) / Modify my monthly salary (ms) / Quit (q) / Statistics (stats)")
     
     if action == "n":
         name = input("What is the name of your expense? ")
@@ -81,6 +82,15 @@ while True:
         data["salary"] = salary
         save_data(data)
         print("Your new monthly salary is now", salary, "pounds.")
+
+    elif action == "stats":
+        total_spent = total_money()
+        largest_expense = largest()
+        biggest_category = biggestc()
+        print("You've spent a total of", total_spent, "this month.")
+        print("Your largest expense was", largest_expense,".")
+        print("The category in which you spent the most money is", biggest_category, ".")
+        graph()
 
     elif action == "q":
         print("Thank you for using our application. Have a nice day!")
