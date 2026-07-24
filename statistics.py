@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 data = load_data()
 expenses = data["expenses"]
 
+def total_money():
+  return sum(expense["amount"] for expense in expenses)
+
 def largest():
   return max(expenses, key=lambda expense: expense["amount"])
 
-def total():
-  print("Youve spent a total of", sum(expense["amount"] for expense in expenses), "this month.")
-
-def categories():
+def total_categories():
   totals = {}
   for expense in expenses:
     category = expense["category"]
@@ -20,15 +20,18 @@ def categories():
   return totals
 
 def biggestc():
-  totals = category_totals()
+  totals = total_categories()
   return max(totals, key=totals.get) 
 
 def graph():
-  totals = category_totals()
+  totals = total_categories()
   categories = list(totals.keys())
   amounts = list(totals.values())
-  plt.bar(categories, amounts)
+  plt.figure(figsize=(8,5))
+  plt.bar(categories, amounts, color=plt.cm.Set3.colors)
   plt.title("Monthly spending by category")
   plt.xlabel("Category")
-  plt.ylabel("Amount spent")
+  plt.ylabel("Amount (£)")
+  plt.xticks(rotation=45)
+  plt.tight_layout()
   plt.show()
