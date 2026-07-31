@@ -1,7 +1,7 @@
 import json
 import os
 
-FILE = "/Users/joshuawhite-labbe/Documents/GitHub/python/finances.json"
+FILE = "/Users/joshua/Documents/GitHub/python/finances.json"
 
 def load_data():
     if os.path.exists(FILE):
