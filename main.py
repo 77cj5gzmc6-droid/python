@@ -44,8 +44,18 @@ if date.today().day == data["payday"]:
 #######################################################################################################################################################################################################################################################
 
 while True:
-    action = input("What would you like to do? (New expense (n) / Delete an expense (d) / Add money (a) / Modify an expense (me) / View my expenses (v) / Search for an expense (s) / Money left this month (l) / Modify my monthly salary (ms) / Quit (q) / Statistics (stats)")
-    
+    first_menu = input("What are we doing today? (Manage expenses (e)/ Manage money (m) / Statistics (s) / Quit (q)) ")
+    if first_menu == "e":
+        second_menu = input("Add expense (n) / Delete expense (d) / Modify expense (m) / Search for expense (s) / View all expenses (v) ")
+        action = second_menu
+
+    elif first_menu == "m":
+        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) ")
+        action = second_menu
+
+    elif first_menu == "s":
+        action = "stats"
+
     if action == "n":
         name = input("What is the name of your expense? ")
         category = input("What is the category of your expense? ")
