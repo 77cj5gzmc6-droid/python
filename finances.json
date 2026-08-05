@@ -3,20 +3,32 @@
     "payday": 1.0,
     "budgets": {
         "Food & drink": 150.0,
-        "Technology": 300.0
+        "Tech": 300.0
     },
     "expenses": [
         {
             "name": "Starbucks",
             "category": "Food & drink",
-            "date": "12/09/2026",
+            "date": "05/08/2026",
             "amount": 7.0
         },
         {
-            "name": "Apple iPhone 17e",
-            "category": "Technology",
-            "date": "12/09/2026",
-            "amount": 800.0
+            "name": "Groceries Carrefour",
+            "category": "Food & drink",
+            "date": "05/08/2026",
+            "amount": 28.0
         },
+        {
+            "name": "iPhone 17e",
+            "category": "Tech",
+            "date": "12/05/2026",
+            "amount": 600.0
+        },
+        {
+            "name": "Car",
+            "category": "Transportation",
+            "date": "02/08/2023",
+            "amount": 1000.0
+        }
     ]
 }
