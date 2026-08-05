@@ -7,7 +7,7 @@ budgets = data["budgets"]
 def set_budget():
     category = input("What category is your budget for?")
     budget_amount = float(input(f"What's the budget for {category}? "))
-    budgets["category"] = float(budget_category)
+    budgets[category] = budget_amount
     data["budgets"] = budgets
     save_data(data)
-    print("Your budget for", category, "has been set to", budget\_amount, "pounds.")
+    print("Your budget for", category, "has been set to", budget_amount, "pounds.")

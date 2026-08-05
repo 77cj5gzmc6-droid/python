@@ -1,6 +1,10 @@
 {
     "salary": 2000.0,
     "payday": 1.0,
+    "budgets": {
+        "Food & drink": 150.0,
+        "Technology": 300.0
+    },
     "expenses": [
         {
             "name": "Starbucks",
@@ -14,17 +18,5 @@
             "date": "12/09/2026",
             "amount": 800.0
         },
-        {
-            "name": "Starbucks 1",
-            "category": "Food & drink",
-            "date": "2/09/2028",
-            "amount": 12.0
-        },
-        {
-            "name": "Starbucks 2",
-            "category": "Food & drink",
-            "date": "12/09/2026",
-            "amount": 10.0
-        }
     ]
 }

@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from database import load_data, save_data
 from expenses import add, remove, modify, search, namemake, view
+from budget import set_budget
 from statistics import largest, total_money, total_categories, biggestc, graph
 
 #######################################################################################################################################################################################################################################################
@@ -50,7 +51,7 @@ while True:
         action = second_menu
 
     elif first_menu == "m":
-        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) ")
+        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) / Set budget (b) ")
         action = second_menu
 
     elif first_menu == "s":
@@ -59,14 +60,24 @@ while True:
     if action == "n":
         name = input("What is the name of your expense? ")
         category = input("What is the category of your expense? ")
+        if category not in data["budgets"]:
+            print("Warning: You have not set a budget for this category.")
         name = namemake(name, expenses)
         amount = float(input("What is the amount of your expense? "))
+        if category in data["budgets"]:
+            tcv = {}
+            for expense in expenses:
+                if category not in tcv:
+                    tcv[category] = 0
+                tcv[category] += expense["amount"]
+        if tcv[category] > data["budgets"][category]:
+            print("Warning; you have exceeded your budget for this category. Your total spending for this category is", tcv[category], "pounds, while your budget is", data["budgets"][category], "pounds.")
         date = input("What is the date of your expense? (dd/mm/yyyy) ")
         add(name, category, date, amount)
 
     elif action == "d":
-            name = input("What is the name of the expense you would like to delete?")
-            remove(name)
+        name = input("What is the name of the expense you would like to delete?")
+        remove(name)
 
     elif action == "m":
         name = input("What is the name of the expense you want to modify?")
@@ -101,6 +112,9 @@ while True:
         print("Your largest expense was", largest_expense,".")
         print("The category in which you spent the most money is", biggest_category, ".")
         graph()
+
+    elif action == "b":
+        set_budget()
 
     elif action == "q":
         print("Thank you for using our application. Have a nice day!")
