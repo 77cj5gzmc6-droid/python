@@ -3,10 +3,30 @@ from statistics import total_categories
 
 def set_budget():
     data = load_data()
-    expenses = data["expenses"]
+    budgets = data["budgets"]
     category = input("What category is your budget for?")
     budget_amount = float(input(f"What's the budget for {category}? "))
     budgets[category] = budget_amount
     data["budgets"] = budgets
     save_data(data)
     print("Your budget for", category, "has been set to", budget_amount, "pounds.")
+
+def view_budgets():
+    data = load_data()
+    budgets = data["budgets"]
+    if not budgets:
+        print("No budgets have been set.")
+        return
+    print("\nYour budgets:")
+    print("-" * 75)
+    print(
+        f"{'Category':<20}"
+        f"{'Amount':>10}"
+    )
+    print("-" * 75)
+    for category, amount in budgets.items():
+        print(
+            f"{category:<20}"
+            f"{amount:>10}"
+        )
+    print("-" * 75)

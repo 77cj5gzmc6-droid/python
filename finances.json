@@ -1,17 +1,12 @@
 {
-    "salary": 2000.0,
+    "salary": 2700.0,
     "payday": 1.0,
     "budgets": {
         "Food & drink": 150.0,
-        "Tech": 300.0
+        "Tech": 300.0,
+        "Transportation": 50.0
     },
     "expenses": [
-        {
-            "name": "Starbucks",
-            "category": "Food & drink",
-            "date": "05/08/2026",
-            "amount": 7.0
-        },
         {
             "name": "Groceries Carrefour",
             "category": "Food & drink",

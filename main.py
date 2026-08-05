@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from database import load_data, save_data
 from expenses import add, remove, modify, search, namemake, view
-from budget import set_budget
+from budget import set_budget, view_budgets
 from statistics import largest, total_money, total_categories, biggestc, graph
 
 #######################################################################################################################################################################################################################################################
@@ -41,7 +41,7 @@ while True:
         action = second_menu
 
     elif first_menu == "m":
-        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) / Set budget (b) ")
+        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) / Set budget (b) / View budgets (vb) ")
         action = second_menu
 
     elif first_menu == "s":
@@ -50,6 +50,9 @@ while True:
     elif first_menu == "q":
         print("Thank you for using our application. Have a nice day!")
         break
+
+    else:
+        print("Invalid action. Please try again.")
 
     if action == "n":
         name = input("What is the name of your expense? ")
@@ -134,5 +137,8 @@ while True:
         expenses = data["expenses"]
         set_budget()
 
+    elif action == "vb":
+        view_budgets()
+        
     else:
         print("Invalid action. Please try again.")
