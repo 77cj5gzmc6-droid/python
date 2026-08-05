@@ -1,13 +1,14 @@
 from database import load_data, save_data
 from datetime import datetime, date
 
-data = load_data()
-expenses = data["expenses"]
-
 def calculate_money(salary, expenses):
+    data = load_data()
+    expenses = data["expenses"]
     return salary - sum(expense["amount"] for expense in expenses)
 
 def add(name, category, date, amount):
+    data = load_data()
+    expenses = data["expenses"]
     money = calculate_money(data["salary"], expenses)
     expense = {
         "name": name,
@@ -22,6 +23,8 @@ def add(name, category, date, amount):
     print("Your expense has been added successfully. You have", money, "pounds left this month.")
 
 def namemake(name,expenses):
+    data = load_data()
+    expenses = data["expenses"]
     counter = 1
     original_name = name
     existing_names = [expense["name"] for expense in expenses]
@@ -31,6 +34,8 @@ def namemake(name,expenses):
     return name
 
 def remove(name):
+    data = load_data()
+    expenses = data["expenses"]
     money = calculate_money(data["salary"], expenses)
     for expense in expenses:
         if expense["name"] == name:
@@ -43,6 +48,8 @@ def remove(name):
     print("No expense found with that name.")
 
 def modify(name):
+    data = load_data()
+    expenses = data["expenses"]
     money = calculate_money(data["salary"], expenses)
     expense_found = False
     for expense in expenses:
@@ -73,6 +80,8 @@ def modify(name):
         print("No expense found with that name.")
 
 def search(name):
+    data = load_data()
+    expenses = data["expenses"]
     expense_found = False
     for expense in expenses:
         if expense["name"] == name:
@@ -83,6 +92,25 @@ def search(name):
         print("No results found.")
 
 def view():
-    print("Here is your list of expenses:")
+    data = load_data()
+    expenses = data["expenses"]
+    if not expenses:
+        print("You have no expenses recorded.")
+        return
+    print("\nYour expenses:")
+    print("-" * 75)
+    print(
+        f"{'Date':<12}"
+        f"{'Name':<25}"
+        f"{'Category':<20}"
+        f"{'Amount':>10}"
+    )
+    print("-" * 75)
     for expense in expenses:
-        print(expense)
+        print(
+            f"{expense['date']:<12}"
+            f"{expense['name']:<25}"
+            f"{expense['category']:<20}"
+            f"£{expense['amount']:>8.2f}"
+        )
+    print("-" * 75)
