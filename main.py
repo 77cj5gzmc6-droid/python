@@ -128,7 +128,8 @@ while True:
         largest_expense = largest(timeframe)
         biggest_category = biggestc(timeframe)
         print("You've spent a total of", total_spent, "this month.")
-        print("Your largest expense was", largest_expense["name"], "at", largest_expense["amount"], "pounds.")
+        view()
+        print("Your largest expense was '", largest_expense["name"], "' at", largest_expense["amount"], "pounds.")
         print("The category in which you spent the most money is", biggest_category, ".")
         graph(timeframe)
 

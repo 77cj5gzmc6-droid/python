@@ -97,7 +97,7 @@ def view():
     if not expenses:
         print("You have no expenses recorded.")
         return
-    print("\nYour expenses:")
+    print("\Here are your expenses:")
     print("-" * 75)
     print(
         f"{'Date':<12}"
