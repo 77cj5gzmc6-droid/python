@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 def get_expenses(timeframe):
   data = load_data()
   expenses = data["expenses"]
-  print("Expenses:", expenses)
   filtered = []
   for expense in expenses:
         expense_date = datetime.strptime(expense["date"], "%d/%m/%Y").date()
@@ -26,7 +25,6 @@ def get_expenses(timeframe):
         elif timeframe == "t":
             if expense_date == date.today():
                 filtered.append(expense)
-  print ("Filtered expenses:", filtered)
   return filtered
 
 def total_money(timeframe):
@@ -60,7 +58,6 @@ def biggestc(timeframe):
 
 def graph(timeframe):
     totals = total_categories(timeframe)
-    print(totals)
     if not totals:
         print("No expenses to display.")
         return

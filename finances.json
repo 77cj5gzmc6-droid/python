@@ -4,7 +4,8 @@
     "budgets": {
         "Food & drink": 150.0,
         "Tech": 300.0,
-        "Transportation": 50.0
+        "Transportation": 50.0,
+        "Work & business": 1200.0
     },
     "expenses": [
         {
@@ -24,6 +25,12 @@
             "category": "Transportation",
             "date": "02/08/2023",
             "amount": 1000.0
+        },
+        {
+            "name": "Groceries Carrefour 1",
+            "category": "Food & drink",
+            "date": "05/08/2026",
+            "amount": 15.0
         }
     ]
 }
