@@ -1,10 +1,47 @@
 {
-    "salary": ,
-    "payday": ,
+    "salary": 10000.0,
+    "payday": 1.0,
     "budgets": {
-        
+        "Housing": 5000.0,
+        "Living": 2000.0,
+        "Transportation": 800.0
     },
     "expenses": [
-        
+        {
+            "name": "Rent",
+            "category": "Housing",
+            "date": "01/01/2026",
+            "amount": 2000.0
+        },
+        {
+            "name": "Rent 1",
+            "category": "Housing",
+            "date": "02/01/2026",
+            "amount": 1500.0
+        },
+        {
+            "name": "Food",
+            "category": "Living",
+            "date": "05/08/2026",
+            "amount": 1000.0
+        },
+        {
+            "name": "Electric Bill",
+            "category": "Utility Bills",
+            "date": "05/08/2026",
+            "amount": 200.0
+        },
+        {
+            "name": "Train Ticket",
+            "category": "Transportation",
+            "date": "05/08/2026",
+            "amount": 300.0
+        },
+        {
+            "name": "Metro",
+            "category": "Transportation",
+            "date": "05/08/2026",
+            "amount": 1000.0
+        }
     ]
 }
