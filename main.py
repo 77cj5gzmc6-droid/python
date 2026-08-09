@@ -176,9 +176,11 @@ while True:
     elif action == "stats":
         data = load_data()
         expenses = data["expenses"]
-        timeframe = input("View all time (a) / View this month (m) / View this week (w) / View today (t) ")
-        if timeframe not in ["a", "m", "w", "t"]:
+        timeframe = input("View all time (a) / View this month (m) / View this week (w) / View today (t) / Back (bk) ")
+        if timeframe not in ["a", "m", "w", "t", "bk"]:
             print("Invalid timeframe. Please try again.")
+            continue
+        if timeframe == "bk":
             continue
         total_spent = total_money(timeframe)
         largest_expense = largest(timeframe)
@@ -188,6 +190,7 @@ while True:
         print("Your largest expense was '", largest_expense["name"], "' at", largest_expense["amount"], "£.")
         print("The category in which you spent the most money is", biggest_category, ".")
         graph(timeframe)
+        
 
     else:
         print("Invalid action. Please try again.")
