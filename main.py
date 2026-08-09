@@ -59,6 +59,10 @@ while True:
         print("Thank you for using our application. Have a nice day!")
         break
 
+    else:
+        print("Invalid action. Please try again.")
+        continue
+
 
     # Actions
 
@@ -166,3 +170,4 @@ while True:
 
     else:
         print("Invalid action. Please try again.")
+        continue
