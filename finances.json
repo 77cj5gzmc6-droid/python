@@ -1,7 +1,13 @@
 {
     "salary": 2500.0,
     "payday": 1.0,
-    "budgets": {},
+    "budgets": {
+        "Transportation": 80.0,
+        "Food & drink": 200.0,
+        "Bills": 150.0,
+        "Lifestyle & fun": 50.0,
+        "Hygiene": 70.0
+    },
     "expenses": [
         {
             "name": "Starbucks",
@@ -42,5 +48,5 @@
     ],
     "last_opened": "",
     "last_payday": "2026-06-01",
-    "money": 9059.45
+    "money": 14059.45
 }
