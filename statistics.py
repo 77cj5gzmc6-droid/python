@@ -65,7 +65,7 @@ def graph(timeframe):
     amounts = list(totals.values())
 
     plt.figure(figsize=(8,5))
-    plt.bar(categories, amounts, color=plt.cm.Set3.colors)
+    plt.bar(categories, amounts, color=plt.cm.Set3.colors, width=0.6)
     plt.title("Spending by category")
     plt.xlabel("Category")
     plt.ylabel("Amount (£)")
