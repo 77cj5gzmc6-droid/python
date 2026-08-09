@@ -10,8 +10,13 @@ def load_data():
     else:
         return {
             "salary": 0,
-            "expenses": []
+            "payday": 0,
+            "budgets": {},
+            "expenses": [],
+            "last_opened": "",
+            "last_payday": ""
         }
+
 
 def save_data(data):
     with open(FILE, "w", encoding="utf-8") as f:

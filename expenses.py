@@ -1,26 +1,23 @@
 from database import load_data, save_data
 from datetime import datetime, date
 
-def calculate_money(salary, expenses):
-    data = load_data()
-    expenses = data["expenses"]
-    return salary - sum(expense["amount"] for expense in expenses)
-
 def add(name, category, date, amount):
     data = load_data()
     expenses = data["expenses"]
-    money = calculate_money(data["salary"], expenses)
+    money = data["money"]
     expense = {
         "name": name,
         "category": category,
         "date": date,
         "amount": amount
     }
+    money -= amount
     expenses.append(expense)
     data["expenses"] = expenses
+    data["money"] = money
     save_data(data)
     money -= amount
-    print("Your expense has been added successfully. You have", money, "pounds left this month.")
+    print("Your expense has been added successfully. You have", money, "£ left this month.")
 
 def namemake(name,expenses):
     data = load_data()
@@ -36,21 +33,22 @@ def namemake(name,expenses):
 def remove(name):
     data = load_data()
     expenses = data["expenses"]
-    money = calculate_money(data["salary"], expenses)
+    money = data["money"]
     for expense in expenses:
         if expense["name"] == name:
             expenses.remove(expense)
             data["expenses"] = expenses
-            save_data(data)
             money += expense["amount"]
-            print("Your expense has been removed successfully. You have", money, "pounds left this month.")
+            data["money"] = money
+            save_data(data)
+            print("Your expense has been removed successfully. You have", money, "£ left this month.")
             return
     print("No expense found with that name.")
 
 def modify(name):
     data = load_data()
     expenses = data["expenses"]
-    money = calculate_money(data["salary"], expenses)
+    money = data["money"]
     expense_found = False
     for expense in expenses:
         if expense["name"] == name:
@@ -71,9 +69,10 @@ def modify(name):
             expense["name"] = new_name
             expense["amount"] = new_amount
             expense["date"] = new_date
+            data["money"] = money
             data["expenses"] = expenses
             save_data(data)
-            print("The expense has been modified successfully. You have", money, "pounds left this month.")
+            print("The expense has been modified successfully. You have", money, "£ left this month.")
             expense_found = True
             break
     if not expense_found:

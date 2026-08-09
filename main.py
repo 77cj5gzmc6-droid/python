@@ -3,6 +3,7 @@ from database import load_data, save_data
 from expenses import add, remove, modify, search, namemake, view
 from budget import set_budget, view_budgets, modify_budget, delete_budget
 from statistics import largest, total_money, total_categories, biggestc, graph
+from payday import check_paydays
 
 #######################################################################################################################################################################################################################################################
 ## Welcome and setup
@@ -14,6 +15,7 @@ print("Welcome ! Today is", today.strftime("%d/%m/%Y"))
 data = load_data()
 expenses = data["expenses"]
 
+
 if data["salary"]==0:
     salary = float(input("What is your monthly salary? "))
     payday = float(input("On what day of the month do you get paid? (Type 1 if its on the first of the month)"))
@@ -22,12 +24,24 @@ if data["salary"]==0:
     save_data(data)
 else:
     salary = data["salary"]
-    print("Your monthly salary is", salary, "pounds.")
+    print("Your monthly salary is", salary, "£.")
 
-money = salary - sum(
-    expense["amount"] for expense in expenses
-)
-print ( "You have", money, "pounds left this month.")
+money = data["money"]
+print ( "You have", money, "£ left this month.")
+
+#######################################################################################################################################################################################################################################################
+## Payday
+#######################################################################################################################################################################################################################################################
+
+payday = int(data["payday"])
+
+salary_added = check_paydays()
+money += salary_added
+data["money"] = money
+save_data(data)
+
+last_payday = data.get("last_payday", "")
+current_payday = today.replace(day=payday)
 
 #######################################################################################################################################################################################################################################################
 ## All functions
@@ -41,21 +55,24 @@ while True:
 
 
     if first_menu == "e":
-        second_menu = input("New expense (n) / Delete expense (d) / Edit expense (e) / Search for expense (s) / View all expenses (ve) ")
+        second_menu = input("New expense (n) / Delete expense (d) / Edit expense (e) / Search for expense (s) / View all expenses (ve) / Back (bk)")
         action = second_menu
 
     elif first_menu == "m":
-        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms)")
+        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) / Back (bk)")
         action = second_menu
 
     elif first_menu == "b":
-        second_menu = input("Set budget (b) / View budgets (vb) / Modify budget (mb) / Delete a budget (db) ")
+        second_menu = input("Set budget (b) / View budgets (vb) / Modify budget (mb) / Delete a budget (db) / Back (bk)")
         action = second_menu
 
     elif first_menu == "s":
         action = "stats"
 
     elif first_menu == "q":
+        last_opened = datetime.now()
+        data["last_opened"]=last_opened
+        save_data(data)
         print("Thank you for using our application. Have a nice day!")
         break
 
@@ -66,8 +83,10 @@ while True:
 
     # Actions
 
+    if action == "bk":
+        continue
 
-    if action == "n":
+    elif action == "n":
         name = input("What is the name of your expense? ").strip()
         category = input("What is the category of your expense? ").strip()
         data = load_data()
@@ -81,7 +100,7 @@ while True:
                 if expense["category"] == category:
                     tcv += expense["amount"]
             if tcv > data["budgets"][category]:
-                print("Warning; you have exceeded your budget for this category. Your total spending for this category is", tcv, "pounds, while your budget is", data["budgets"][category], "pounds.")
+                print("Warning; you have exceeded your budget for this category. Your total spending for this category is", tcv, "£, while your budget is", data["budgets"][category], "£.")
         date = input("What is the date of your expense (DD/MM/YYYY)? Press enter if it's today. ")
         if date == "":
             date = datetime.now().strftime("%d/%m/%Y")
@@ -115,14 +134,16 @@ while True:
     elif action == "l":
         data = load_data()
         expenses = data["expenses"]
-        print ("You have", money, "pounds left this month.")
+        print ("You have", money, "£ left this month.")
     
     elif action == "a":
         data = load_data()
         expenses = data["expenses"]
         amount_added = float(input("How much money do you want to add? "))
         money += amount_added
-        print("You have added", amount_added, "pounds. You have", money, "pounds left this month.")
+        data["money"] = money
+        save_data(data)
+        print("You have added", amount_added, "£. You have", money, "£ left this month.")
 
     elif action == "ms":
         data = load_data()
@@ -130,7 +151,7 @@ while True:
         salary = float(input("What is your new monthly salary?"))
         data["salary"] = salary
         save_data(data)
-        print("Your new monthly salary is now", salary, "pounds.")
+        print("Your new monthly salary is now", salary, "£.")
 
     elif action == "b":
         data = load_data()
@@ -162,9 +183,9 @@ while True:
         total_spent = total_money(timeframe)
         largest_expense = largest(timeframe)
         biggest_category = biggestc(timeframe)
-        print("You've spent a total of", total_spent, "pounds.")
+        print("You've spent a total of", total_spent, "£.")
         view()
-        print("Your largest expense was '", largest_expense["name"], "' at", largest_expense["amount"], "pounds.")
+        print("Your largest expense was '", largest_expense["name"], "' at", largest_expense["amount"], "£.")
         print("The category in which you spent the most money is", biggest_category, ".")
         graph(timeframe)
 

@@ -9,7 +9,7 @@ def set_budget():
     budgets[category] = budget_amount
     data["budgets"] = budgets
     save_data(data)
-    print("Your budget for", category, "has been set to", budget_amount, "pounds.")
+    print("Your budget for", category, "has been set to", budget_amount, "£.")
 
 def view_budgets():
     data = load_data()
@@ -49,6 +49,9 @@ def delete_budget(delb):
     budgets = data["budgets"]
     if not budgets:
         print("You don't have any budgets to delete.")
+        return
+    if delb not in budgets:
+        print("No budget for that category found")
         return
     category = delb
     budgets.pop(delb)
