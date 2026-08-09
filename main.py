@@ -68,8 +68,8 @@ while True:
 
 
     if action == "n":
-        name = input("What is the name of your expense? ")
-        category = input("What is the category of your expense? ")
+        name = input("What is the name of your expense? ").strip()
+        category = input("What is the category of your expense? ").strip()
         data = load_data()
         if category not in data["budgets"]:
             print("Warning: You have not set a budget for this category.")

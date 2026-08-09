@@ -4,7 +4,7 @@ from statistics import total_categories
 def set_budget():
     data = load_data()
     budgets = data["budgets"]
-    category = input("What category is your budget for?")
+    category = input("What category is your budget for?").strip()
     budget_amount = float(input(f"What's the budget for {category}? "))
     budgets[category] = budget_amount
     data["budgets"] = budgets

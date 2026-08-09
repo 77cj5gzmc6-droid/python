@@ -113,4 +113,4 @@ def view():
             f"{expense['category']:<20}"
             f"£{expense['amount']:>8.2f}"
         )
-    print("-" * 75)
+    print("-" * 75)    
