@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from database import load_data, save_data
 from expenses import add, remove, modify, search, namemake, view
-from budget import set_budget, view_budgets
+from budget import set_budget, view_budgets, modify_budget, delete_budget
 from statistics import largest, total_money, total_categories, biggestc, graph
 
 #######################################################################################################################################################################################################################################################
@@ -16,7 +16,7 @@ expenses = data["expenses"]
 
 if data["salary"]==0:
     salary = float(input("What is your monthly salary? "))
-    payday = float(input("What is your payday? Please enter the day of the month (eg. 1 if its on the first of the month)"))
+    payday = float(input("On what day of the month do you get paid? (Type 1 if its on the first of the month)"))
     data["salary"] = salary
     data["payday"] = payday
     save_data(data)
@@ -34,14 +34,22 @@ print ( "You have", money, "pounds left this month.")
 #######################################################################################################################################################################################################################################################
 
 while True:
-    first_menu = input("What are we doing today? (Manage expenses (e)/ Manage money (m) / Statistics (s) / Quit (q)) ")
+    first_menu = input("What are we doing today? (Expenses (e)/ Money (m) / Budget (b) / Statistics (s) / Quit (q)) ")
+
+
+    #Sub-menu
+
 
     if first_menu == "e":
-        second_menu = input("Add expense (n) / Delete expense (d) / Modify expense (m) / Search for expense (s) / View all expenses (v) ")
+        second_menu = input("New expense (n) / Delete expense (d) / Edit expense (e) / Search for expense (s) / View all expenses (ve) ")
         action = second_menu
 
     elif first_menu == "m":
-        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms) / Set budget (b) / View budgets (vb) ")
+        second_menu = input("View money left (l) / Add money (a) / Modify salary (ms)")
+        action = second_menu
+
+    elif first_menu == "b":
+        second_menu = input("Set budget (b) / View budgets (vb) / Modify budget (mb) / Delete a budget (db) ")
         action = second_menu
 
     elif first_menu == "s":
@@ -51,8 +59,9 @@ while True:
         print("Thank you for using our application. Have a nice day!")
         break
 
-    else:
-        print("Invalid action. Please try again.")
+
+    # Actions
+
 
     if action == "n":
         name = input("What is the name of your expense? ")
@@ -77,12 +86,14 @@ while True:
     elif action == "d":
         data = load_data()
         expenses = data["expenses"]
+        view()
         name = input("What is the name of the expense you would like to delete?")
         remove(name)
 
-    elif action == "m":
+    elif action == "e":
         data = load_data()
         expenses = data["expenses"]
+        view()
         name = input("What is the name of the expense you want to modify?")
         modify(name)
     
@@ -92,7 +103,7 @@ while True:
         name = input("What is the name of the expense you want to search for?")
         search(name)
 
-    elif action == "v":
+    elif action == "ve":
         data = load_data()
         expenses = data["expenses"]
         view()
@@ -117,6 +128,26 @@ while True:
         save_data(data)
         print("Your new monthly salary is now", salary, "pounds.")
 
+    elif action == "b":
+        data = load_data()
+        expenses = data["expenses"]
+        set_budget()
+
+    elif action == "mb":
+        modb = input("Which budget would yu like to change?")
+        modify_budget(modb)
+
+    elif action == "db":
+        delb = input("Which budget would you like to delete?")
+        delete_budget(delb)
+
+    elif action == "db":
+        delb = input("Which budget would you like to delete?")
+        delete_budget(delb)
+
+    elif action == "vb":
+        view_budgets()
+
     elif action == "stats":
         data = load_data()
         expenses = data["expenses"]
@@ -133,13 +164,5 @@ while True:
         print("The category in which you spent the most money is", biggest_category, ".")
         graph(timeframe)
 
-    elif action == "b":
-        data = load_data()
-        expenses = data["expenses"]
-        set_budget()
-
-    elif action == "vb":
-        view_budgets()
-        
     else:
         print("Invalid action. Please try again.")

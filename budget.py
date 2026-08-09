@@ -30,3 +30,28 @@ def view_budgets():
             f"{amount:>10}"
         )
     print("-" * 75)
+
+def modify_budget(modb):
+    data = load_data()
+    budgets = data["budgets"]
+    if not budgets:
+        print("You don't have any budgets to modify.")
+        return
+    category = modb
+    newb = float(input(f"What's the new budget for {category} ? "))
+    budgets[category] = newb
+    data["budgets"] = budgets
+    save_data(data)
+    print("Your budget for", category, "has been set.")
+
+def delete_budget(delb):
+    data = load_data()
+    budgets = data["budgets"]
+    if not budgets:
+        print("You don't have any budgets to delete.")
+        return
+    category = delb
+    budgets.pop(delb)
+    data["budgets"] = budgets
+    save_data(data)
+    print("Your budget for", category, "has been deleted.")
