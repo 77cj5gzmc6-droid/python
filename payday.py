@@ -37,6 +37,7 @@ def check_paydays():
 
         if possible_payday > today:
             break
+
         missed_paydays += 1
 
         if possible_payday == today:
@@ -44,7 +45,9 @@ def check_paydays():
 
     if missed_paydays == 0:
         return 0
+
     money_added = salary * missed_paydays
+
     current_payday = get_payday_date(
         today.year,
         today.month,
@@ -64,8 +67,10 @@ def check_paydays():
             payday
         )
 
+    data["money"] += money_added
     data["last_payday"] = current_payday.isoformat()
     save_data(data)
+
     print(f"You missed {missed_paydays} payday(s).")
     print(f"{money_added:.2f} £ has been added to your account. Your balance is now {data['money']:.2f} £.")
     return money_added

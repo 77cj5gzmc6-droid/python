@@ -1,31 +1,31 @@
 from database import load_data
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import matplotlib.pyplot as plt
 
 def get_expenses(timeframe):
-  data = load_data()
-  expenses = data["expenses"]
-  filtered = []
-  for expense in expenses:
+    data = load_data()
+    expenses = data["expenses"]
+    filtered = []
+    today = date.today()
+    start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
+    for expense in expenses:
         expense_date = datetime.strptime(expense["date"], "%d/%m/%Y").date()
         if timeframe == "a":
             filtered.append(expense)
         elif timeframe == "m":
             if (
-                expense_date.month == date.today().month
-                and expense_date.year == date.today().year
+                expense_date.month == today.month
+                and expense_date.year == today.year
             ):
                 filtered.append(expense)
         elif timeframe == "w":
-            if (
-                expense_date.isocalendar().week == date.today().isocalendar().week
-                and expense_date.year == date.today().year
-            ):
+            if start_of_week <= expense_date <= end_of_week:
                 filtered.append(expense)
         elif timeframe == "t":
-            if expense_date == date.today():
+            if expense_date == today:
                 filtered.append(expense)
-  return filtered
+    return filtered
 
 def total_money(timeframe):
     expenses = get_expenses(timeframe)
@@ -41,14 +41,14 @@ def largest(timeframe):
     return max(expenses,key=lambda expense: expense["amount"])
 
 def total_categories(timeframe):
-  expenses = get_expenses(timeframe)
-  totals = {}
-  for expense in expenses:
-    category = expense["category"]
-    if category not in totals:
-      totals[category] = 0
-    totals[category] += expense["amount"]
-  return totals
+    expenses = get_expenses(timeframe)
+    totals = {}
+    for expense in expenses:
+        category = expense["category"]
+        if category not in totals:
+            totals[category] = 0
+        totals[category] += expense["amount"]
+    return totals
 
 def biggestc(timeframe):
     totals = total_categories(timeframe)
@@ -65,7 +65,7 @@ def graph(timeframe):
     amounts = list(totals.values())
 
     plt.figure(figsize=(8,5))
-    plt.bar(categories, amounts, color=plt.cm.Set3.colors, width=0.6)
+    plt.bar(categories, amounts, width=0.6)
     plt.title("Spending by category")
     plt.xlabel("Category")
     plt.ylabel("Amount (£)")

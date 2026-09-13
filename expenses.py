@@ -16,7 +16,6 @@ def add(name, category, date, amount):
     data["expenses"] = expenses
     data["money"] = money
     save_data(data)
-    money -= amount
     print("Your expense has been added successfully. You have", money, "£ left this month.")
 
 def namemake(name,expenses):
@@ -112,4 +111,4 @@ def view():
             f"{expense['category']:<20}"
             f"£{expense['amount']:>8.2f}"
         )
-    print("-" * 75)    
+    print("-" * 75)

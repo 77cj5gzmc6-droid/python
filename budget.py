@@ -27,7 +27,7 @@ def view_budgets():
     for category, amount in budgets.items():
         print(
             f"{category:<20}"
-            f"{amount:>10}"
+            f"{amount:>10.2f}"
         )
     print("-" * 75)
 
@@ -38,6 +38,9 @@ def modify_budget(modb):
         print("You don't have any budgets to modify.")
         return
     category = modb
+    if category not in budgets:
+        print("No budget for that category found")
+        return
     newb = float(input(f"What's the new budget for {category} ? "))
     budgets[category] = newb
     data["budgets"] = budgets
