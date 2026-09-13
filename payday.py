@@ -67,5 +67,5 @@ def check_paydays():
     data["last_payday"] = current_payday.isoformat()
     save_data(data)
     print(f"You missed {missed_paydays} payday(s).")
-    print(f"{money_added:.2f} £ has been added to your account.")
+    print(f"{money_added:.2f} £ has been added to your account. Your balance is now {data['money']:.2f} £.")
     return money_added
