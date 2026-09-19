@@ -22,3 +22,14 @@ I've yet again used another branch in GitHub, this time to add a budgets menu. I
 I should point out that ChatGPT helped me out by listing all of the mistakes and bugs I had made, which gave me a set list of objectives and changes to focus on before moving on to anything else. However, my use of this tool was not to simply copy and paste lines of code, but more to show me where I'm wrong, and eventually help me fix things I can't solve with my own knowledge.
 Now that I understand python and GitHub better, I feel more confident adding and modifying existingfeatures on this app. The "blank canvas" effect is no longer there.
 I'm hoping to move onto creating a visual interface which'll let me turn these lines of python code into a properly functioning desktop app.
+
+# 19/9/2026 - Log 4, building the GUI with AI tools
+The project has now reached a point where the app is ready for an interface. I'm hoping to be able to package this app later on. Today, I've used an AI tool to help me better understand customtkinter and debug the existing code I had.
+I should also add that I went through quite a hassle whilst trying to install customtkinter on my machine! I had a deprecated version (8.5.9 I believe) which I was trying to update, then I tried installing home-brew and reinstalling python, only to end up creating a virtual code space which I now use as my python interpreter in VS Code, with the updated version of Customtkinter on it.
+I now have a very basic/noob level of knowledge on customtkinter:
+
+  - An app is set with class App (ctk.CTk)
+  - A window is set withctk.CTk
+  - There are lots of CTk functions to set buttons, text, windows, frames...
+  - .grid and .pac are used for app layout
+  - The GUI is started with .mainloop()
