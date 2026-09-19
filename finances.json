@@ -1,52 +1,12 @@
 {
-    "salary": 2500.0,
-    "payday": 1.0,
+    "salary":,
+    "payday":,
     "budgets": {
-        "Transportation": 80.0,
-        "Food & drink": 200.0,
-        "Bills": 150.0,
-        "Lifestyle & fun": 50.0,
-        "Hygiene": 70.0
     },
     "expenses": [
-        {
-            "name": "Starbucks",
-            "category": "Food & drink",
-            "date": "09/08/2026",
-            "amount": 7.0
-        },
-        {
-            "name": "Starbucks 1",
-            "category": "Food & drink",
-            "date": "24/07/2026",
-            "amount": 7.0
-        },
-        {
-            "name": "Rent",
-            "category": "Bills",
-            "date": "31/07/2026",
-            "amount": 800.0
-        },
-        {
-            "name": "Metro tickets",
-            "category": "Transportation",
-            "date": "12/06/2026",
-            "amount": 2.55
-        },
-        {
-            "name": "Movie tickets",
-            "category": "Lifestyle & fun",
-            "date": "24/07/2026",
-            "amount": 16.0
-        },
-        {
-            "name": "Shop",
-            "category": "Hygiene",
-            "date": "20/07/2026",
-            "amount": 108.0
-        }
+        
     ],
-    "last_opened": "2026-09-13T14:41:34.740890",
-    "last_payday": "2026-09-01",
-    "money": 36559.45
+    "last_opened":,
+    "last_payday":,
+    "money":
 }
